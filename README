@@ -4,17 +4,11 @@ jsonurl
 Introduction
 ------------
 
-jsonurl is a simple library for managing the serialisation and deserialisation of URL
-query strings which represent hierarchically structured data.  
+jsonurl is a simple library for managing the serialisation and deserialisation of URL query strings which represent hierarchically structured data.  
 
-It will take python data structures which can be represented in JSON and convert them to
-flat key/value pairs for use in URL query strings, and it will take URL query strings and
-parse them into hierarchical data structures.
+It will take python data structures which can be represented in JSON and convert them to flat key/value pairs for use in URL query strings, and it will take URL query strings and parse them into hierarchical data structures.
 
-This is convenient if you wish to pass structured data around in the URL itself rather 
-than in a POST body.  This may complement a web API which also accepts JSON strings in
-the body of a POST request, providing equivalent functionality using GET without 
-constructing URLs which include url-encoded json objects.
+This is convenient if you wish to pass structured data around in the URL itself rather than in a POST body.  This may complement a web API which also accepts JSON strings in the body of a POST request, providing equivalent functionality using GET without constructing URLs which include url-encoded json objects.
 
 
 Usage
@@ -38,8 +32,7 @@ A dictionary with a nested dictionary
     >>> q
     'four=4&one.three=3&one.two=2'
 
-We can also get a flat dictionary as a proxy for the hierarchic one, if we do not want
-jsonurl to actually prepare the query part of the URL for us
+We can also get a flat dictionary as a proxy for the hierarchic one, if we do not want jsonurl to actually prepare the query part of the URL for us
 
     >>> jsonurl.dict_to_args(d)
     {'four': '4', 'one.three': '3', 'one.two': '2'}
@@ -92,8 +85,7 @@ It also unescapes everything during parse:
     >>> jsonurl.parse_query(s)
     {'escape_me': "I'll need escaping"}
 
-Since jsonurl uses "." as its separator, dictionary keys with "." in the name are
-escaped.  We prefix each "." with another during serialisation:
+Since jsonurl uses "." as its separator, dictionary keys with "." in the name are escaped.  We prefix each "." with another during serialisation:
 
     >>> d = {"user.names" : ["richard", "jones"]}
     >>> q = jsonurl.query_string(d)
