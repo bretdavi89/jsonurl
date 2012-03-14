@@ -56,17 +56,17 @@ def dict_to_args(d):
         if type(v) == dict:
             sub = dict_to_args(v)
             for s, nv in sub.items():
-                args[dot_escape(k) + "." + s] = nv
+                args[param_quote(dot_escape(k)) + "." + s] = nv
         elif type(v) == list:
             sub = list_to_args(v)
             for s, nv in sub.items():
-                args[dot_escape(k) + "." + s] = nv
+                args[param_quote(dot_escape(k)) + "." + s] = nv
         else:
-            args[dot_escape(k)] = param_quote(str(v))
+            args[param_quote(dot_escape(k))] = param_quote(str(v))
     return args
 
 def dot_split(s):
-    return [part.replace("..", ".") for part in re.split("(?<!\.)\.(?!\.)", s)]
+    return [param_unquote(part).replace("..", ".") for part in re.split("(?<!\.)\.(?!\.)", s)]
 
 def args_to_dict(args):
     d = {}
@@ -103,8 +103,10 @@ def args_to_dict(args):
                     ctx = ctx[bit]
             elif type(ctx) == list:
                 if not last:
-                    ctx.append({} if next_is_dict else [])
-                    ctx = ctx[len(ctx) - 1]
+                    if int(bit) > len(ctx) - 1:
+                        ctx.append({} if next_is_dict else [])
+                    #ctx.append({} if next_is_dict else [])
+                    ctx = ctx[int(bit)]
                 else:
                     ctx.append(type_cast(param_unquote(value)))
                     ctx = None
