@@ -8,14 +8,7 @@ setup(
     url = '',
     author = 'Richard Jones',
     author_email = 'richard@cottagelabs.com',
-    description = """
-    A library for serialising and deserialising URL query strings which can represent
-    hierarchical data structures which can also be represented as JSON.  
-    
-    This is convenient, for example, if you wish to have a web API which takes JSON 
-    objects as a POST body, but which may also need to respond to GET requests for 
-    which a more readable set of parameters would be appropriate.
-    """,
+    description = "A library for serialising and deserialising URL query strings which can also be represented as JSON.",
     license = 'CC0',
     classifiers = [
         'Intended Audience :: Developers',
